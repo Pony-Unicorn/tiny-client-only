@@ -1,19 +1,19 @@
-# @pony/client-only
+# tiny-client-only
 
 A lightweight React component that renders its children **only on the client side**, helping avoid SSR hydration errors in frameworks like Next.js.
 
 ## 📦 Installation
 
 ```bash
-npm install @pony/client-only
+npm install tiny-client-only
 # or
-pnpm add @pony/client-only
+pnpm add tiny-client-only
 ```
 
 ## 🚀 Usage
 
 ```tsx
-import ClientOnly from "@pony/client-only";
+import ClientOnly from "tiny-client-only";
 
 export default function Page() {
   return (

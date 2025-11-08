@@ -3,7 +3,7 @@ name: Publish to npm (on tag)
 on:
   push:
     tags:
-      - "v*.*.*" # 例如 v1.0.0
+      - "v*.*.*"
 
 jobs:
   publish:
