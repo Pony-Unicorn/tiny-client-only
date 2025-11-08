@@ -13,10 +13,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Use Node.js 20
+      - name: Use Node.js 22 LTS
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           registry-url: "https://registry.npmjs.org"
           always-auth: true
           cache: "pnpm"
@@ -24,7 +24,12 @@ jobs:
       - name: Set up pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: ${{ secrets.PNPM_VERSION || 9 }}
+          version: 9
+
+      - name: Verify Node & pnpm
+        run: |
+          node -v
+          pnpm -v
 
       - name: Install deps
         run: pnpm install --frozen-lockfile
@@ -32,18 +37,7 @@ jobs:
       - name: Build
         run: pnpm run build
 
-      # 如果你的包是 scope 包（@pony/client-only），需要 --access public
-      - name: Publish
+      - name: Publish to npm
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          # 可选：校验 package.json 版本与 tag 一致
-          PKG_VERSION=$(node -p "require('./package.json').version")
-          TAG_VERSION=${GITHUB_REF_NAME#v}
-          if [ "$PKG_VERSION" != "$TAG_VERSION" ]; then
-            echo "package.json version ($PKG_VERSION) != tag version ($TAG_VERSION)"
-            exit 1
-          fi
-
-          # 发布（需要公开包时加 --access public）
-          pnpm publish --access public --no-git-checks
+        run: pnpm publish --access public --no-git-checks
