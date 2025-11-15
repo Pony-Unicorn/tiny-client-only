@@ -1,6 +1,6 @@
 {
   "name": "tiny-client-only",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A lightweight React component that renders children only on the client side (SSR safe).",
   "main": "dist/ClientOnly.js",
   "module": "dist/ClientOnly.mjs",
@@ -24,6 +24,10 @@
   },
   "scripts": {
     "build": "tsup src/ClientOnly.tsx --format esm,cjs --dts --clean"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Pony-Unicorn/tiny-client-only.git"
   },
   "devDependencies": {
     "@types/react": "^19.2.2",
